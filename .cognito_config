@@ -1,0 +1,6 @@
+USER_POOL_ID=ap-south-1_ahL54idj8
+COGNITO_DOMAIN=https://sre-agent-1774374371-160.auth.ap-south-1.amazoncognito.com
+DOMAIN_PREFIX=sre-agent-1774374371-160
+RESOURCE_SERVER_ID=sre-agent-api
+COGNITO_CLIENT_ID=6peok2e4s9mbr7jhuav3tmdr3a
+COGNITO_CLIENT_SECRET=l8vs0eranel1da53hgn4stp99g23pgiajvsg7o4fuvod4mpc8gg
