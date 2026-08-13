@@ -331,12 +331,12 @@ def _read_gateway_config() -> tuple[str, str]:
                 "Gateway URI not found in agent_config.yaml under 'gateway.uri'"
             )
 
-        # Get AWS region with fallback logic: config -> AWS_REGION env var -> us-east-1
+        # Get AWS region with fallback logic: config -> AWS_REGION env var -> ap-south-1
         # Handle case where 'aws' key might be None
         aws_config = config.get("aws") or {}
         aws_region = aws_config.get("region") if isinstance(aws_config, dict) else None
         if not aws_region:
-            aws_region = os.environ.get("AWS_REGION", "us-east-1")
+            aws_region = os.environ.get("AWS_REGION", "ap-south-1")
 
         # Read access token from environment
         access_token = os.getenv("GATEWAY_ACCESS_TOKEN")
@@ -652,7 +652,7 @@ async def _run_interactive_session(
     output_dir: str = "./reports",
     save_markdown: bool = True,
     force_delete_memory: bool = False,
-    region_name: str = "us-east-1",
+    region_name: str = "ap-south-1",
 ):
     """Run an interactive multi-turn conversation session."""
     # Buffer to store last query and response for /savereport command
@@ -1182,14 +1182,14 @@ async def main():
             if aws_region:
                 logger.info(f"Using AWS region from AWS_REGION environment variable: {aws_region}")
             else:
-                # Final fallback to us-east-1
-                aws_region = "us-east-1"
+                # Final fallback to ap-south-1
+                aws_region = "ap-south-1"
                 logger.info(f"Using default AWS region: {aws_region}")
 
     except Exception as e:
         logger.warning(f"Failed to load AWS region from config: {e}")
         # Try environment variable, then default
-        aws_region = os.environ.get("AWS_REGION", "us-east-1")
+        aws_region = os.environ.get("AWS_REGION", "ap-south-1")
         logger.info(f"Using AWS region fallback: {aws_region}")
 
     # Set environment variable so other modules can check debug status

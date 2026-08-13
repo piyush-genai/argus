@@ -26,9 +26,9 @@ logger = logging.getLogger(__name__)
 
 
 # Configuration constants
-DEFAULT_CREDENTIAL_PROVIDER_NAME = "argus-sre-agent-api-key-credential-provider"
-DEFAULT_REGION = "us-east-1"
-DEFAULT_ENDPOINT_URL = "https://bedrock-agentcore-control.us-east-1.amazonaws.com"
+DEFAULT_CREDENTIAL_PROVIDER_NAME = "sre-agent-api-key-credential-provider"
+DEFAULT_REGION = "ap-south-1"
+DEFAULT_ENDPOINT_URL = "https://bedrock-agentcore-control.ap-south-1.amazonaws.com"
 
 
 def _create_acps_client(region: str, endpoint_url: str) -> Any:

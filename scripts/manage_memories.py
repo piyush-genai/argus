@@ -158,7 +158,7 @@ def _list_memories_for_type(
 def _list_all_memories() -> list:
     """List all memory resources."""
     try:
-        memory_client = MemoryClient(region_name="us-east-1")
+        memory_client = MemoryClient(region_name="ap-south-1")
         memories = memory_client.list_memories(max_results=100)
         return memories
     except Exception as e:
@@ -169,7 +169,7 @@ def _list_all_memories() -> list:
 def _delete_memory(memory_id: str) -> bool:
     """Delete a specific memory resource."""
     try:
-        memory_client = MemoryClient(region_name="us-east-1")
+        memory_client = MemoryClient(region_name="ap-south-1")
         logger.info(f"Deleting memory: {memory_id}")
         print(f"Deleting memory: {memory_id}...")
 

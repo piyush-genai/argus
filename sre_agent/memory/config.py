@@ -20,7 +20,7 @@ class MemoryConfig(BaseModel):
         default="sre_agent_memory", description="Base name for memory instances"
     )
     region: str = Field(
-        default="us-east-1", description="AWS region for memory storage"
+        default="ap-south-1", description="AWS region for memory storage"
     )
 
     # Retention settings

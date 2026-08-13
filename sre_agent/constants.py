@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+kjjc#!/usr/bin/env python3
 
 import logging
 
@@ -55,15 +55,15 @@ class ModelConfig(BaseModel):
 class AWSConfig(BaseModel):
     """AWS configuration constants."""
 
-    default_region: str = Field(default="us-east-1", description="Default AWS region")
+    default_region: str = Field(default="ap-south-1", description="Default AWS region")
 
     bedrock_endpoint_url: str = Field(
-        default="https://bedrock-agentcore-control.us-east-1.amazonaws.com",
+        default="https://bedrock-agentcore-control.ap-south-1.amazonaws.com",
         description="Amazon Bedrock AgentCore control endpoint URL",
     )
 
     credential_provider_endpoint_url: str = Field(
-        default="https://bedrock-agentcore-control.us-east-1.amazonaws.com",
+        default="https://bedrock-agentcore-control.ap-south-1.amazonaws.com",
         description="AWS credential provider endpoint URL",
     )
 

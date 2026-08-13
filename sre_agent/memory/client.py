@@ -22,7 +22,7 @@ class SREMemoryClient:
     def __init__(
         self,
         memory_name: str = "sre_agent_memory",
-        region: str = "us-east-1",
+        region: str = "ap-south-1",
         force_delete: bool = False,
     ):
         self.client = MemoryClient(region_name=region)

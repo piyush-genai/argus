@@ -238,8 +238,8 @@ def main():
     )
     parser.add_argument(
         "--region", 
-        default=os.environ.get("AWS_REGION", "us-east-1"), 
-        help="AWS region (default: AWS_REGION env var or us-east-1)"
+        default=os.environ.get("AWS_REGION", "ap-south-1"), 
+        help="AWS region (default: AWS_REGION env var or ap-south-1)"
     )
     parser.add_argument(
         "--force-recreate",

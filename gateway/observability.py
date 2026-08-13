@@ -2,7 +2,7 @@ import boto3
 
 
 def enable_observability_for_resource(
-    resource_arn: str, resource_id: str, account_id: str, region: str = "us-east-1"
+    resource_arn: str, resource_id: str, account_id: str, region: str = "ap-south-1"
 ):
     """
     Enable observability for a Bedrock AgentCore resource (e.g., Memory Store)

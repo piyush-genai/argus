@@ -504,11 +504,11 @@ def main():
 
     # AWS configuration
     parser.add_argument(
-        "--region", default="us-east-1", help="AWS region (default: us-east-1)"
+        "--region", default="ap-south-1", help="AWS region (default: ap-south-1)"
     )
     parser.add_argument(
         "--endpoint-url",
-        default="https://bedrock-agentcore-control.us-east-1.amazonaws.com",
+        default="https://bedrock-agentcore-control.ap-south-1.amazonaws.com",
         help="AgentCore endpoint URL",
     )
     parser.add_argument(

@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -26,7 +27,10 @@ app = FastAPI(title="Application Logs API", version="1.0.0")
 DATA_PATH = Path(__file__).parent.parent / "data" / "logs_data"
 
 # API Key for authentication
-CREDENTIAL_PROVIDER_NAME = "argus-sre-agent-api-key-credential-provider"
+# Allow override via environment variable to support different deployment configurations
+CREDENTIAL_PROVIDER_NAME = os.getenv(
+    "CREDENTIAL_PROVIDER_NAME", "sre-agent-api-key-credential-provider"
+)
 
 # Retrieve API key from credential provider at startup
 try:

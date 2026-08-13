@@ -26,7 +26,10 @@ app = FastAPI(title="Application Metrics API", version="1.0.0")
 DATA_PATH = Path(__file__).parent.parent / "data" / "metrics_data"
 
 # API Key for authentication
-CREDENTIAL_PROVIDER_NAME = "argus-sre-agent-api-key-credential-provider"
+# Allow override via environment variable to support different deployment configurations
+CREDENTIAL_PROVIDER_NAME = os.getenv(
+    "CREDENTIAL_PROVIDER_NAME", "sre-agent-api-key-credential-provider"
+)
 
 # Retrieve API key from credential provider at startup
 try:

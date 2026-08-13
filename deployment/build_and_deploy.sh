@@ -37,7 +37,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PARENT_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Configuration
-AWS_REGION="${AWS_REGION:-us-east-1}"
+AWS_REGION="${AWS_REGION:-ap-south-1}"
 ECR_REPO_NAME="${1:-sre_agent}"
 RUNTIME_NAME="${RUNTIME_NAME:-$ECR_REPO_NAME}"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
