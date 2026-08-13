@@ -130,41 +130,25 @@ scp -i ~/.ssh/sre-agent-keypair.pem \
 
 ## 🧹 Step 3: Clean Up (Both Local and EC2)
 
-### Files Safe to Delete
+### Understanding Generated Files
 
-These are generated/temporary files that can be safely removed:
+**OpenAPI YAML files are SPECIAL:**
+- Located in: `backend/openapi_specs/*.yaml`
+- They are **generated from templates** (`.yaml.template` files)
+- They **are needed** for the gateway to work
+- They **are gitignored** (each machine generates its own)
+- They contain your specific domain (`piyushsre.ddns.net`)
+
+**Do NOT manually delete these!** Instead, regenerate them if needed:
 
 ```bash
-# Backend - generated OpenAPI specs (regenerated from templates)
-rm -f backend/openapi_specs/k8s_api.yaml
-rm -f backend/openapi_specs/logs_api.yaml
-rm -f backend/openapi_specs/metrics_api.yaml
-rm -f backend/openapi_specs/runbooks_api.yaml
+cd ~/argus/backend/openapi_specs
 
-# Logs and reports
-rm -rf logs/*.log
-rm -rf reports/*.md
+# Set your domain
+export BACKEND_DOMAIN=piyushsre.ddns.net
 
-# Temporary/state files
-rm -f .conversation_state.json
-rm -f .langgraph_conversation_state.json
-rm -f .multi_agent_conversation_state.json
-rm -f .memory_id
-
-# Deployment artifacts (regenerated on deploy)
-rm -f deployment/.sre_agent_uri
-rm -f deployment/.env
-rm -f deployment/.agent_arn
-
-# Gateway artifacts (regenerated on use)
-rm -f gateway/.access_token
-rm -f gateway/.gateway_uri
-rm -f gateway/.credentials_provider
-
-# Python cache
-find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null
-find . -type f -name "*.pyc" -delete
-find . -type f -name "*.pyo" -delete
+# Generate all OpenAPI specs
+bash generate_specs.sh
 ```
 
 ### Automated Cleanup Script
@@ -174,62 +158,28 @@ find . -type f -name "*.pyo" -delete
 ```bash
 cd ~/argus  # or ~/workspace/projects/argus/argus-sre-agent on local
 
-bash scripts/cleanup.sh
+# Make executable if needed
+chmod +x scripts/cleanup_workspace.sh
+
+# Run cleanup
+bash scripts/cleanup_workspace.sh
 ```
 
-**If `cleanup.sh` doesn't exist, create it:**
+**What it cleans:**
+- ✅ Logs and reports (`logs/`, `reports/`)
+- ✅ State files (`.conversation_state.json`, etc.)
+- ✅ Auth tokens (`.access_token`, `.gateway_uri`)
+- ✅ Deployment artifacts (`.agent_arn`, `.sre_agent_uri`)
+- ✅ Python cache (`__pycache__/`, `*.pyc`)
+- ✅ OS files (`.DS_Store`, `Thumbs.db`)
 
-```bash
-cat > scripts/cleanup.sh << 'EOF'
-#!/bin/bash
-
-echo "🧹 Cleaning up Argus workspace..."
-
-# Remove generated files
-echo "Removing generated OpenAPI specs..."
-rm -f backend/openapi_specs/k8s_api.yaml
-rm -f backend/openapi_specs/logs_api.yaml
-rm -f backend/openapi_specs/metrics_api.yaml
-rm -f backend/openapi_specs/runbooks_api.yaml
-
-# Remove logs and reports
-echo "Removing logs and reports..."
-rm -rf logs/*.log
-rm -rf reports/*.md
-
-# Remove state files
-echo "Removing state files..."
-rm -f .conversation_state.json
-rm -f .langgraph_conversation_state.json
-rm -f .multi_agent_conversation_state.json
-rm -f .memory_id
-
-# Remove deployment artifacts
-echo "Removing deployment artifacts..."
-rm -f deployment/.sre_agent_uri
-rm -f deployment/.env
-rm -f deployment/.agent_arn
-
-# Remove gateway artifacts  
-echo "Removing gateway artifacts..."
-rm -f gateway/.access_token
-rm -f gateway/.gateway_uri
-rm -f gateway/.credentials_provider
-
-# Remove Python cache
-echo "Removing Python cache..."
-find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null
-find . -type f -name "*.pyc" -delete
-find . -type f -name "*.pyo" -delete
-
-# Remove .DS_Store (Mac)
-find . -name ".DS_Store" -delete 2>/dev/null
-
-echo "✅ Cleanup complete!"
-EOF
-
-chmod +x scripts/cleanup.sh
-```
+**What it preserves:**
+- ✅ Source code (`sre_agent/`, `backend/`)
+- ✅ Configuration (`.env`, `config.yaml`)
+- ✅ SSL certificates (`/opt/ssl/`)
+- ✅ Virtual environment (`.venv/`)
+- ✅ Git repository (`.git/`)
+- ✅ **OpenAPI specs** (`backend/openapi_specs/*.yaml`) ← Important!
 
 ---
 
